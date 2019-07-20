@@ -17,29 +17,18 @@ include('header.php');
 				<img src="styles/images/dead.png" class="logo img-thumbnail">
 				<img src="styles/images/phish.png" class="logo img-thumbnail">
 			</a>
+			
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
 			
-			<div class="collapse navbar-collapse">
-			<!--
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
-					</li>
-				</ul>
-			-->
-				<ul class="nav navbar-nav ml-auto">
-					<form class="form-inline my-2" action="home.php" method="post">
-						<input class="form-control" type="text" placeholder="Search Date" name="searchDate">
-						<input type="submit" style="display: none;" name="_search">
-					</form>
-				</ul>
-			</div>
+			<ul class="nav navbar-nav ml-auto">
+				<form class="form-inline my-2" action="home.php" method="post">
+					<input class="form-control" type="text" placeholder="Search Date" name="searchDate">
+					<input type="submit" style="display: none;" name="_search">
+				</form>
+			</ul>
 		</nav>
 		
 		<?php
