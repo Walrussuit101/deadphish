@@ -12,9 +12,11 @@ include('header.php');
 	<body class="bg-dark">
 	
 	
-		<nav class="navbar navbar-expand navbar-dark bg-secondary">
-			<img src="styles/images/dead.png" class="logo img-thumbnail">
-			<img src="styles/images/phish.png" class="logo img-thumbnail">
+		<nav class="navbar navbar-expand navbar-dark bg-secondary fixed-top">
+			<a href="home.php">
+				<img src="styles/images/dead.png" class="logo img-thumbnail">
+				<img src="styles/images/phish.png" class="logo img-thumbnail">
+			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -32,13 +34,36 @@ include('header.php');
 				</ul>
 			-->
 				<ul class="nav navbar-nav ml-auto">
-					<form class="form-inline my-2">
-						<input class="form-control" type="text" placeholder="Search Date">
+					<form class="form-inline my-2" action="home.php" method="post">
+						<input class="form-control" type="text" placeholder="Search Date" name="searchDate">
+						<input type="submit" style="display: none;" name="_search">
 					</form>
 				</ul>
 			</div>
-			
 		</nav>
+		
+		<?php
+			if(isset($_POST['_search'])){
+			
+echo"	<center>
+			<table class='dateTable table table-striped table-dark'>
+				<thead>
+					<tr>
+					  <th scope='col'>Date</th>
+					  <th scope='col'>Setlist Link</th>
+					  <th scope='col'>Artist</th>
+					</tr>
+				</thead>
+				<tbody>";
+					
+					//handle rows
+					
+echo"
+				</tbody>
+			</table>
+		</center>";
+			}
+		?>
 		
 		
 		
