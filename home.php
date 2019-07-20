@@ -1,14 +1,6 @@
 <?php
 include('header.php');
 
-$query = "SELECT * FROM testtable WHERE id=2";
-$result = $conn->prepare($query);
-$result->execute();
-
-while($row = $result->fetch()){
-	$name = $row['value'];
-}
-
 ?>
 <html>
 	<head>
@@ -16,6 +8,6 @@ while($row = $result->fetch()){
 	</head>
 
 	<body>
-		<h2><?php echo $name; ?></h2
+		<h2>yes</h2>
 	</body>
 </html>
