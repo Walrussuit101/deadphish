@@ -13,7 +13,7 @@ include('header.php');
 	
 		<nav class="navbar navbar-expand navbar-dark bg-secondary">
 			<img src="styles/images/dead.png" class="logo img-thumbnail">
-			<img src="styles/images/phish2.png" class="logo img-thumbnail">
+			<img src="styles/images/phish.png" class="logo img-thumbnail">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
