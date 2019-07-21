@@ -22,6 +22,7 @@ function _displayResults($conn, $results){
 				<td>".$row['date']."</td>
 				<td><a href='".$row['link']."' target='_blank'>".$row['link']."</a></td>
 				<td>".$artist."</td>
+				<td>".$row['notes']."</td>
 			</tr>
 		";
 	}	
@@ -72,6 +73,7 @@ echo"	<center>
 					  <th scope='col'>Date</th>
 					  <th scope='col'>Setlist Link</th>
 					  <th scope='col'>Artist</th>
+					  <th scope='col'>Notes</th>
 					</tr>
 				</thead>
 				<tbody>";
