@@ -1,5 +1,36 @@
 <?php
 include('header.php');
+
+function _getShowsByDate($conn, $date){
+	$query = "SELECT * FROM shows WHERE date LIKE '%".$date."%' ORDER BY date ASC";
+	$result = $conn->prepare($query);
+	$result->execute();
+	return $result;
+}
+
+function _displayResults($conn, $results){
+	while($row = $results->fetch(PDO::FETCH_ASSOC)){
+		echo "row returned";
+		if($row['isDead'] == 1){
+			$artist = "Grateful Dead";
+		}else{
+			$artist = "Phish";
+		}
+		
+		echo "
+			<tr>	
+				<td>".$row['date']."</td>
+				<td><a href='".$row['link']."' target='_blank'>".$row['link']."</a></td>
+				<td>".$artist."</td>
+			</tr>
+		";
+	}	
+	
+	if($results->rowCount() == 0){
+		echo "<tr style='background-color: red;'><td colspan='3'>NO SHOWS FOUND</td></tr>";
+	}
+}
+
 ?>
 <html>
 	<head>
@@ -24,8 +55,8 @@ include('header.php');
 
 			
 			<ul class="nav navbar-nav ml-auto">
-				<form class="form-inline my-2" action="home.php" method="post">
-					<input class="form-control" type="text" placeholder="Search Date" name="searchDate">
+				<form class="form-inline my-2" action="home.php" method="post" autocomplete="off">
+					<input class="form-control" type="text" placeholder="Search Date" name="searchDate" value="<?php if(isset($_POST['searchDate'])){echo $_POST['searchDate'];}?>">
 					<input type="submit" style="display: none;" name="_search">
 				</form>
 			</ul>
@@ -45,7 +76,9 @@ echo"	<center>
 				</thead>
 				<tbody>";
 					
-					//handle rows
+					$results = _getShowsByDate($conn, $_POST['searchDate']);
+					$_POST['searchDate'] = $_POST['searchDate'];
+					_displayResults($conn, $results);
 					
 echo"
 				</tbody>
