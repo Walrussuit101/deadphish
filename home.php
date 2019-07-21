@@ -10,7 +10,6 @@ function _getShowsByDate($conn, $date){
 
 function _displayResults($conn, $results){
 	while($row = $results->fetch(PDO::FETCH_ASSOC)){
-		echo "row returned";
 		if($row['isDead'] == 1){
 			$artist = "Grateful Dead";
 		}else{
@@ -39,11 +38,10 @@ function _displayResults($conn, $results){
 		<link rel="stylesheet" href="styles/home.css">
 		<title>deadphish | Home</title>
 		<link rel="shortcut icon" href="styles/images/icon.png" />
+		<script type="text/javascript" src="scripts.js"></script>  
 	</head>
 
 	<body class="bg-dark">
-	
-	
 		<nav class="navbar navbar-expand navbar-dark bg-secondary fixed-top">
 			<a href="home.php">
 				<img src="styles/images/dead.png" class="logo img-thumbnail">
@@ -63,34 +61,71 @@ function _displayResults($conn, $results){
 			</ul>
 		</nav>
 		
+		<div class="content">
 		<?php
-			if(isset($_POST['_search'])){
-			
-echo"	<center>
-			<table class='dateTable table table-striped table-dark'>
-				<thead>
-					<tr>
-					  <th scope='col'>Date</th>
-					  <th scope='col'>Setlist Link</th>
-					  <th scope='col'>Artist</th>
-					  <th scope='col'>Notes</th>
-					</tr>
-				</thead>
-				<tbody>";
-					
-					$results = _getShowsByDate($conn, $_POST['searchDate']);
-					_displayResults($conn, $results);
+if(isset($_POST['_search'])){			
+echo"		<center>
+				<table class='dateTable table table-striped table-dark'>
+					<thead>
+						<tr>
+						  <th scope='col'>Date</th>
+						  <th scope='col'>Setlist Link</th>
+						  <th scope='col'>Artist</th>
+						  <th scope='col'>Notes</th>
+						</tr>
+					</thead>
+					<tbody>";
+						
+						$results = _getShowsByDate($conn, $_POST['searchDate']);
+						_displayResults($conn, $results);
 					
 echo"
-				</tbody>
-			</table>
-		</center>";
-			}
+					</tbody>
+				</table>
+			</center>
+";
+}
+else{
+echo"	
+			<center>
+				<form class='addForm bg-secondary'>
+					<div class='form-row justify-content-center pt-4'>
+						<div class='form-group col-md-3'>
+							<label>Date (yyyy/mm/dd)</label>
+							<input type='text' name='date' class='form-control'>
+						</div>
+					</div>
+					<div class='form-row justify-content-center my-4'>
+						<div class='form-group col-md-2'>
+							<label>Dead?</label>
+							<input type='checkbox' name='isDead' class='form-control' onclick='deadPhishButtons()'>
+						</div>
+						<div class='form-group col-md-2'>
+							<label>Phish?</label>
+							<input type='checkbox' name='isPhish' class='form-control' onclick='deadPhishButtons()'>
+						</div>
+					</div>
+					<div class='form-row justify-content-center pb-4'>
+						<div class='form-group col-md-6'>
+							<label>Notes</label>
+							<textarea type='text' name='notes' class='form-control'></textarea>
+						</div>
+					</div>
+					<div class='form-row justify-content-center pb-4'>
+						<div class='form-group col-md-6'>
+							<input type='submit' name='_addShow' class='form-control btn btn-outline-success' value='Add Show'>
+						</div>
+					</div>
+				</form>
+			</center>
+";
+	
+	
+	
+}
 		?>
-		
-		
-		
-		
+			
+		</div>
 		
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

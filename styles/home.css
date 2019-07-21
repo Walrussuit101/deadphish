@@ -11,5 +11,27 @@ a{
 
 .dateTable{
 	width: 70%;
-	margin-top: 160px;
+}
+
+.content{
+	margin-top: 140px;
+}
+
+textarea{
+	resize: none;
+	height: 150;
+}
+
+.addForm{
+	color: white;
+	width: 50%;
+	border-radius: 25px;
+}
+
+input[type="checkbox"]{
+	height: 40px;
+}
+
+input[type="checkbox"]:focus{
+	box-shadow:none !important;
 }
