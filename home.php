@@ -36,7 +36,7 @@ function _displayResults($conn, $results){
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" href="styles/home.css">
-		<title>It Works</title>
+		<title>deadphish | Home</title>
 		<link rel="shortcut icon" href="styles/images/icon.png" />
 	</head>
 
