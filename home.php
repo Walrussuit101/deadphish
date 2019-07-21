@@ -77,7 +77,6 @@ echo"	<center>
 				<tbody>";
 					
 					$results = _getShowsByDate($conn, $_POST['searchDate']);
-					$_POST['searchDate'] = $_POST['searchDate'];
 					_displayResults($conn, $results);
 					
 echo"
