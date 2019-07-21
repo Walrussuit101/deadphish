@@ -95,7 +95,7 @@ echo"
 							<input type='text' name='date' class='form-control'>
 						</div>
 					</div>
-					<div class='form-row justify-content-center my-4'>
+					<div class='form-row justify-content-center mb-3'>
 						<div class='form-group col-md-2'>
 							<label>Dead?</label>
 							<input type='checkbox' name='isDead' class='form-control' onclick='deadPhishButtons()'>
