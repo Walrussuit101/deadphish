@@ -56,7 +56,7 @@ function _displayResults($conn, $results){
 			
 			<ul class="nav navbar-nav ml-auto">
 				<form class="form-inline my-2" action="home.php" method="post" autocomplete="off">
-					<input class="form-control" type="text" placeholder="Search Date" name="searchDate" value="<?php if(isset($_POST['searchDate'])){echo $_POST['searchDate'];}?>">
+					<input class="form-control" type="text" placeholder="Search Date" name="searchDate" value="<?php if(isset($_POST['searchDate'])){echo $_POST['searchDate'];}?>" required='required'>
 					<input type="submit" style="display: none;" name="_search">
 				</form>
 			</ul>
