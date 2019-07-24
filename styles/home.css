@@ -10,7 +10,12 @@ a{
 }
 
 .dateTable{
-	width: 70%;
+	width: 65%;
+	table-layout: fixed;
+}
+
+.dateTable td{
+	word-wrap:break-word;
 }
 
 .content{

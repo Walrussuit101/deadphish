@@ -27,7 +27,24 @@ function _displayResults($conn, $results){
 	}	
 	
 	if($results->rowCount() == 0){
-		echo "<tr style='background-color: red;'><td colspan='3'>NO SHOWS FOUND</td></tr>";
+		echo "<tr style='background-color: red;'><td colspan='4'>NO SHOWS FOUND</td></tr>";
+	}
+}
+
+function _addShow($conn, $date, $isDead, $isPhish, $notes, $link){
+	//check if date already exists, if so return false
+	
+	$query = "SELECT id FROM shows WHERE (date = '".$date."') ";
+	$result = $conn->prepare($query);
+	$result->execute();
+	
+	if($result->rowCount() > 0){
+		return false;
+	}else{
+		$query = "INSERT INTO shows (date, link, isDead, isPhish, notes) VALUES ('".$date."', '".$link."', '".$isDead."', '".$isPhish."', '".$notes."') ";
+		$result = $conn->prepare($query);
+		$result->execute();
+		return true;
 	}
 }
 
@@ -57,6 +74,7 @@ function _displayResults($conn, $results){
 				<form class="form-inline my-2" action="home.php" method="post" autocomplete="off">
 					<input class="form-control" type="text" placeholder="Search Date" name="searchDate" value="<?php if(isset($_POST['searchDate'])){echo $_POST['searchDate'];}?>" required='required'>
 					<input type="submit" style="display: none;" name="_search">
+					<script>document.getElementsByName("searchDate")[0].focus();</script>
 				</form>
 			</ul>
 		</nav>
@@ -84,15 +102,64 @@ echo"
 				</table>
 			</center>
 ";
-}
-else{
+}else if(isset($_POST['_addShowSubmit'])){
+	
+	$added = null;
+	
+	if(isset($_POST['isDead'])){
+		
+		//build dead url,
+		//website doesn't allow 05 for month or day, so decide if string parsing needs to happen
+		
+		$deadBaseLink = 'https://www.cs.cmu.edu/~mleone/gdead/dead-sets/';
+		$deadBaseLink .= substr($_POST['date'],2,2) . "/";
+		
+		if(substr($_POST['date'],5,1) == '0'){
+			$deadBaseLink .= substr($_POST['date'],6,1);
+		}else{
+			$deadBaseLink .= substr($_POST['date'],5,2);
+		}
+		
+		$deadBaseLink .= "-";
+		
+		if(substr($_POST['date'],8,1) == '0'){
+			$deadBaseLink .= substr($_POST['date'],9,1);
+		}else{
+			$deadBaseLink .= substr($_POST['date'],8,2);
+		}
+		
+		$deadBaseLink .= "-" . substr($_POST['date'],2,2) . ".txt";
+		
+		$added = _addShow($conn, $_POST['date'], 1, 0, $_POST['notes'], $deadBaseLink);
+		
+		
+	}else{
+		
+		//build phish url,
+		//website doesn't mind 05 for month or day
+		
+		$phishBaseLink = 'http://phish.net/setlists/';
+		$phishBaseLink .= "?year=" . substr($_POST['date'],0,4);
+		$phishBaseLink .= "&month=" . substr($_POST['date'],5,2);
+		$phishBaseLink .= "&day=" . substr($_POST['date'],8,2);
+		
+		$added = _addShow($conn, $_POST['date'], 0, 1, $_POST['notes'], $phishBaseLink);
+	}
+	
+	if($added){
+		echo "<script>alert('Show: ".$_POST['date']." was succesfully added!'); window.location = 'home.php';</script>";
+	}else{
+		echo "<script>alert('Show: ".$_POST['date']." already is stored, aborting addition.'); window.location = 'home.php';</script>";
+	}
+	
+}else{
 echo"	
 			<center>
-				<form class='addForm bg-secondary'>
+				<form class='addForm bg-secondary' onsubmit='return validateDeadPhishButtons();' action='home.php' method='post' autocomplete='off'>
 					<div class='form-row justify-content-center pt-4'>
 						<div class='form-group col-md-3'>
 							<label>Date (yyyy/mm/dd)</label>
-							<input type='text' name='date' class='form-control'>
+							<input type='text' name='date' class='form-control' required='required'>
 						</div>
 					</div>
 					<div class='form-row justify-content-center mb-3'>
@@ -113,18 +180,14 @@ echo"
 					</div>
 					<div class='form-row justify-content-center pb-4'>
 						<div class='form-group col-md-6'>
-							<input type='submit' name='_addShow' class='form-control btn btn-outline-success' value='Add Show'>
+							<input type='submit' name='_addShowSubmit' class='form-control btn btn-success' value='Add Show'>
 						</div>
 					</div>
 				</form>
 			</center>
 ";
-	
-	
-	
 }
-		?>
-			
+		?>	
 		</div>
 		
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
