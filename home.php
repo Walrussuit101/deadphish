@@ -155,7 +155,7 @@ echo"
 }else{
 echo"	
 			<center>
-				<form class='addForm bg-secondary' onsubmit='return validateDeadPhishButtons();' action='home.php' method='post' autocomplete='off'>
+				<form class='addForm' onsubmit='return validateDeadPhishButtons();' action='home.php' method='post' autocomplete='off'>
 					<div class='form-row justify-content-center pt-4'>
 						<div class='form-group col-md-3'>
 							<label>Date (yyyy/mm/dd)</label>
