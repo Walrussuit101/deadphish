@@ -1,3 +1,11 @@
+body{
+	background-image: url("images/bg.png");
+}
+
+nav{
+	background-color: rgb(108, 117, 125, .4)!important;
+}
+
 .logo{
 	background-color:transparent; 
 	border: none;
@@ -31,7 +39,7 @@ textarea{
 	color: white;
 	width: 40%;
 	border-radius: 25px;
-	background-color: rgb(30, 37, 41);
+	background-color: rgb(30, 37, 41, .5);
 }
 
 input[type="checkbox"]{

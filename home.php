@@ -58,8 +58,8 @@ function _addShow($conn, $date, $isDead, $isPhish, $notes, $link){
 		<script type="text/javascript" src="scripts.js"></script>  
 	</head>
 
-	<body class="bg-dark">
-		<nav class="navbar navbar-expand navbar-dark bg-secondary fixed-top">
+	<body>
+		<nav class="navbar navbar-expand navbar-dark fixed-top">
 			<a href="home.php">
 				<img src="styles/images/dead.png" class="logo img-thumbnail">
 				<img src="styles/images/phish.png" class="logo img-thumbnail">
