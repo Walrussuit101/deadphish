@@ -1,53 +1,7 @@
 <?php
 include('header.php');
-
-function _getShowsByDate($conn, $date){
-	$query = "SELECT * FROM shows WHERE date LIKE '%".$date."%' ORDER BY date ASC";
-	$result = $conn->prepare($query);
-	$result->execute();
-	return $result;
-}
-
-function _displayResults($conn, $results){
-	while($row = $results->fetch(PDO::FETCH_ASSOC)){
-		if($row['isDead'] == 1){
-			$artist = "Grateful Dead";
-		}else{
-			$artist = "Phish";
-		}
-		
-		echo "
-			<tr>	
-				<td>".$row['date']."</td>
-				<td><a href='".$row['link']."' target='_blank'>".$row['link']."</a></td>
-				<td>".$artist."</td>
-				<td>".$row['notes']."</td>
-			</tr>
-		";
-	}	
-	
-	if($results->rowCount() == 0){
-		echo "<tr style='background-color: red;'><td colspan='4'>NO SHOWS FOUND</td></tr>";
-	}
-}
-
-function _addShow($conn, $date, $isDead, $isPhish, $notes, $link){
-	//check if date already exists, if so return false
-	
-	$query = "SELECT id FROM shows WHERE (date = '".$date."') ";
-	$result = $conn->prepare($query);
-	$result->execute();
-	
-	if($result->rowCount() > 0){
-		return false;
-	}else{
-		$query = "INSERT INTO shows (date, link, isDead, isPhish, notes) VALUES ('".$date."', '".$link."', '".$isDead."', '".$isPhish."', '".$notes."') ";
-		$result = $conn->prepare($query);
-		$result->execute();
-		return true;
-	}
-}
-
+include('methods/data/homedb.php');
+include('methods/display/homedisplay.php');
 ?>
 <html>
 	<head>
@@ -65,12 +19,20 @@ function _addShow($conn, $date, $isDead, $isPhish, $notes, $link){
 				<img src="styles/images/phish.png" class="logo img-thumbnail">
 			</a>
 			
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
+			<ul class="nav navbar-nav ml-auto mr-4">
+				<form class=" ml-auto" action="home.php" method="post" style="color: white;"> 
+					<div style="float: left;" class="mr-4">
+						<label>Dead</label>
+						<input type="checkbox" class="form-control" onChange="this.form.submit()" name="_searchByDead"></button>
+					</div>
+					<div style="float: left;">
+						<label>Phish</label>
+						<input type="checkbox" class="form-control" onChange="this.form.submit()" name="_searchByPhish"></button>
+					</div>
+				</form>
+			</ul>
 			
-			<ul class="nav navbar-nav ml-auto">
+			<ul class="nav navbar-nav" style="float: right;">
 				<form class="form-inline my-2" action="home.php" method="post" autocomplete="off">
 					<input class="form-control" type="text" placeholder="Search Date" name="searchDate" value="<?php if(isset($_POST['searchDate'])){echo $_POST['searchDate'];}?>" required='required'>
 					<input type="submit" style="display: none;" name="_search">
@@ -80,28 +42,16 @@ function _addShow($conn, $date, $isDead, $isPhish, $notes, $link){
 		</nav>
 		
 		<div class="content">
-		<?php
+<?php
 if(isset($_POST['_search'])){			
-echo"		<center>
-				<table class='dateTable table table-striped table-dark'>
-					<thead>
-						<tr>
-						  <th scope='col'>Date</th>
-						  <th scope='col'>Setlist Link</th>
-						  <th scope='col'>Artist</th>
-						  <th scope='col'>Notes</th>
-						</tr>
-					</thead>
-					<tbody>";
-						
-						$results = _getShowsByDate($conn, $_POST['searchDate']);
-						_displayResults($conn, $results);
-					
-echo"
-					</tbody>
-				</table>
-			</center>
-";
+			$results = _getShowsByDate($conn, $_POST['searchDate']);
+			_displayResults($conn, $results);	
+}else if(isset($_POST['_searchByDead'])){
+			$results = _getShowsByDead($conn);
+			_displayResults($conn, $results);
+}else if(isset($_POST['_searchByPhish'])){
+			$results = _getShowsByPhish($conn);
+			_displayResults($conn, $results);
 }else if(isset($_POST['_addShowSubmit'])){
 	
 	$added = null;
