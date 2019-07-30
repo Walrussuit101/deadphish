@@ -137,18 +137,22 @@ echo"
 			</center>
 ";
 }
+
+
+$dir = "music";
+$files = array_diff(scandir($dir), array('..', '.'));
 		?>	
 			<center>
 				<audio src="" controls id="audioPlayer">
 				</audio>
 				
 				<ul id="playlist" style="list-style:none; margin-top:20;">
-					<li><a href="music/[1] Shakedown.mp3">Shakedown Street</a></li>
-					<li><a href="music/[2] Bertha.mp3">Bertha</a></li>
-					<li><a href="music/[3] St Circumstance.mp3">St. Of Circumstance</a></li>
-					<li><a href="music/[4] Dancin.mp3">Dancin' In The Streets</a></li>
-					<li><a href="music/[5] Franklins.mp3">Franklins</a></li>
-					<li><a href="music/[6] Shakedown Street_Samson & Delilah.mp3">Shakedown Street/Sampson</a></li>
+<?php
+				foreach($files as $file){
+					error_log($file);
+					echo "<li><a href='music/".$file."'>".$file."</a></li>";
+				}
+?>
 				</ul>
 				<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 				<script>
