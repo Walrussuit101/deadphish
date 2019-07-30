@@ -49,3 +49,9 @@ input[type="checkbox"]{
 input[type="checkbox"]:focus{
 	box-shadow:none !important;
 }
+
+.currentSong{
+	list-style:disc;
+	color: green;
+	
+}

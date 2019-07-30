@@ -138,9 +138,44 @@ echo"
 ";
 }
 		?>	
+		
+			<audio src="" controls id="audioPlayer">
+			</audio>
+			
+			<ul id="playlist" style="list-style:none;">
+				<li><a href="music/[1] Shakedown.mp3">Shakedown Street</a></li>
+				<li><a href="music/[2] Bertha.mp3">Bertha</a></li>
+			</ul>
+			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+			<script>
+				audioPlayer();
+				function audioPlayer(){
+					var currentSong = 0;
+					$('#audioPlayer')[0].src = $('#playlist li a')[0];
+					$('#playlist li a').click(function(e){
+						e.preventDefault();
+						$('#audioPlayer')[0].src = this;
+						$('#audioPlayer')[0].play();
+						document.title = $(this).html();
+						$('#playlist li').removeClass('currentSong');
+						currentSong = $(this).parent().index();
+						$(this).parent().addClass('currentSong');
+					});
+					
+					$('#audioPlayer')[0].addEventListener('ended', function(){
+						currentSong++;
+						if(currentSong == $('#playlist li a').length)
+							currentSong = 0;
+						$('#playlist li').removeClass('currentSong');
+						$('#playlist li:eq('+currentSong+')').addClass('currentSong');
+						$('#audioPlayer')[0].src = $('#playlist li a')[currentSong].href;
+						$('#audioPlayer')[0].play();
+					});
+				}
+			</script>
 		</div>
 		
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</body>
