@@ -149,8 +149,9 @@ $files = array_diff(scandir($dir), array('..', '.'));
 				<ul id="playlist" style="list-style:none; margin-top:20;">
 <?php
 				foreach($files as $file){
-					error_log($file);
-					echo "<li><a href='music/".$file."'>".$file."</a></li>";
+					$mp3 = strpos($file, ".mp3");
+					$filenomp3 = substr($file, 0, $mp3);
+					echo "<li><a href='music/".$file."'>".$filenomp3."</a></li>";
 				}
 ?>
 				</ul>
