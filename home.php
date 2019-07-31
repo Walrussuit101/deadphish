@@ -2,6 +2,18 @@
 include('header.php');
 include('methods/data/homedb.php');
 include('methods/display/homedisplay.php');
+
+function urlExists($url){
+	$headers = @get_headers($url);
+	
+	if(!$headers || $headers[0] == 'HTTP/1.1 404 Not Found') {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 ?>
 <html>
 	<head>
@@ -80,8 +92,13 @@ if(isset($_POST['_search'])){
 		
 		$deadBaseLink .= "-" . substr($_POST['date'],2,2) . ".txt";
 		
-		$added = _addShow($conn, $_POST['date'], 1, 0, $_POST['notes'], $deadBaseLink);
-		
+		//check show exists, by checking url exists
+		if(urlExists($deadBaseLink)){
+			$added = _addShow($conn, $_POST['date'], 1, 0, $_POST['notes'], $deadBaseLink);
+		}
+		else{
+			echo "<script>alert('Show: ".$_POST['date']." does not exist or is not known of.'); window.location = 'home.php';</script>";
+		}
 		
 	}else{
 		
@@ -93,7 +110,13 @@ if(isset($_POST['_search'])){
 		$phishBaseLink .= "&month=" . substr($_POST['date'],5,2);
 		$phishBaseLink .= "&day=" . substr($_POST['date'],8,2);
 		
-		$added = _addShow($conn, $_POST['date'], 0, 1, $_POST['notes'], $phishBaseLink);
+		//check show exists, by checking url exists
+		if(urlExists($deadBaseLink)){
+			$added = _addShow($conn, $_POST['date'], 0, 1, $_POST['notes'], $phishBaseLink);
+		}
+		else{
+			echo "<script>alert('Show: ".$_POST['date']." does not exist or is not known of.'); window.location = 'home.php';</script>";
+		}
 	}
 	
 	if($added){
