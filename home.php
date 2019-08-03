@@ -102,6 +102,14 @@ if(isset($_POST['_search'])){
 		echo "<script>alert('Show: ".$_POST['date']." already is stored, aborting addition.'); window.location = 'home.php';</script>";
 	}
 	
+}else if(isset($_POST["_submitFile"])){
+	try{
+		$target_file = "music/" . basename($_FILES["file"]["name"]);
+		move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
+		echo "<script>window.location='home.php'</script>";
+	}catch(Exception $e){
+		error_log($e->getMessage());
+	}
 }else{
 echo"	
 			<center>
@@ -159,6 +167,17 @@ $files = array_diff(scandir($dir), array('..', '.'));
 				<script>
 					audioPlayer();
 				</script>
+			</center>
+			
+			<center>
+				<form action="home.php" method="post" enctype="multipart/form-data">
+					<div class="form-group" style="color: white;">
+						<label>Example file input</label>
+						<input type="file" class="form-control-file" name="file">
+						<input type="submit" class="form-control" name="_submitFile" value="Upload File">
+					</div>
+				</form>
+			
 			</center>
 		</div>
 		
