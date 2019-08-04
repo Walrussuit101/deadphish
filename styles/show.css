@@ -1,0 +1,42 @@
+.content{
+	margin-top: 200px;
+}
+
+body{
+	background-image: url("images/bg.png");
+}
+
+nav{
+	background-color: rgb(108, 117, 125, .4)!important;
+}
+
+.logo{
+	background-color:transparent; 
+	border: none;
+	height: 70;
+	width: 70;
+}
+
+a{
+	text-decoration: none !important;;
+}
+
+input[type="checkbox"]{
+	height: 40px;
+}
+
+input[type="checkbox"]:focus{
+	box-shadow:none !important;
+}
+
+.currentSong{
+	color: green;
+}
+
+.currentSong:hover{
+	color: #026802;
+}
+
+audio:focus{
+	outline: none;
+}
