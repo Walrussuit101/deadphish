@@ -38,8 +38,8 @@ function audioPlayer(){
 		currentSong++;
 		if(currentSong == $('#playlist li a').length)
 			currentSong = 0;
-		$('#playlist li').removeClass('currentSong');
-		$('#playlist li:eq('+currentSong+')').addClass('currentSong');
+		$('#playlist li a').removeClass('currentSong');
+		$('#playlist li a:eq('+currentSong+')').addClass('currentSong');
 		$('#audioPlayer')[0].src = $('#playlist li a')[currentSong].href;
 		$('#audioPlayer')[0].play();
 	});
