@@ -1,11 +1,17 @@
 <?php
 include('header.php');
+
+if(!isset($_SESSION['selectedDate'])){
+	header("Location: home.php");
+	exit();
+}
+
 ?>
 <html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" href="styles/show.css">
-		<title>_DATE OF SHOW_</title>
+		<?php echo "<title>".$_SESSION["selectedDate"]."</title>" ?>
 		<link rel="shortcut icon" href="styles/images/icon.png" />
 		<script type="text/javascript" src="scripts.js"></script>  
 	</head>
@@ -62,6 +68,13 @@ include('header.php');
 				</script>
 			</center>
 		</div>
-		
 	</body>
 </html>
+
+<?php
+	function shutdown(){
+		unset($_SESSION["selectedDate"]);
+	}
+
+	register_shutdown_function("shutdown");
+?>

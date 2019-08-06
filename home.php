@@ -110,40 +110,12 @@ if(isset($_POST['_search'])){
 	}catch(Exception $e){
 		error_log($e->getMessage());
 	}
+}else if(isset($_POST['_goToShow'])){
+	$_SESSION['selectedDate'] = $_POST['_goToShow'];
+	header("Location: show.php");
+	exit();
 }else{
-echo"	
-			<center>
-				<form class='addForm' onsubmit='return validateDeadPhishButtons();' action='home.php' method='post' autocomplete='off'>
-					<div class='form-row justify-content-center pt-4'>
-						<div class='form-group col-md-3'>
-							<label>Date (yyyy/mm/dd)</label>
-							<input type='text' name='date' class='form-control' required='required'>
-						</div>
-					</div>
-					<div class='form-row justify-content-center mb-3'>
-						<div class='form-group col-md-2'>
-							<label>Dead?</label>
-							<input type='checkbox' name='isDead' class='form-control' onclick='deadPhishButtons()'>
-						</div>
-						<div class='form-group col-md-2'>
-							<label>Phish?</label>
-							<input type='checkbox' name='isPhish' class='form-control' onclick='deadPhishButtons()'>
-						</div>
-					</div>
-					<div class='form-row justify-content-center pb-4'>
-						<div class='form-group col-md-6'>
-							<label>Notes</label>
-							<textarea type='text' name='notes' class='form-control'></textarea>
-						</div>
-					</div>
-					<div class='form-row justify-content-center pb-4'>
-						<div class='form-group col-md-6'>
-							<input type='submit' name='_addShowSubmit' class='form-control btn btn-success' value='Add Show'>
-						</div>
-					</div>
-				</form>
-			</center>
-";
+	_displayAddForm();
 }
 		?>	
 			<center>
@@ -157,7 +129,6 @@ echo"
 			
 			</center>
 		</div>
-		
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
