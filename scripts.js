@@ -28,7 +28,7 @@ function audioPlayer(){
 		e.preventDefault();
 		$('#audioPlayer')[0].src = this;
 		$('#audioPlayer')[0].play();
-		document.title = $(this).html();
+		document.title = $('title').text() + "..." + $(this).html();
 		$('#playlist li a').removeClass('currentSong');
 		currentSong = $(this).parent().index();
 		$(this).addClass('currentSong');

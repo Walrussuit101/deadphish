@@ -47,7 +47,7 @@ function _displayAddForm(){
 				<form class='addForm' onsubmit='return validateDeadPhishButtons();' action='home.php' method='post' autocomplete='off'>
 					<div class='form-row justify-content-center pt-4'>
 						<div class='form-group col-md-3'>
-							<label>Date (yyyy/mm/dd)</label>
+							<label>Date (yyyy-mm-dd)</label>
 							<input type='text' name='date' class='form-control' required='required'>
 						</div>
 					</div>
