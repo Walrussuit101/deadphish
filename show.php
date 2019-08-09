@@ -1,7 +1,9 @@
 <?php
 include('header.php');
+include('methods/data/showdb.php');
 
 if(!isset($_SESSION['selectedDate'])){
+	error_log("IM REDIRECTING RIGHT HERE");
 	header("Location: home.php");
 	exit();
 }
@@ -52,13 +54,23 @@ if(!isset($_SESSION['selectedDate'])){
 				
 				<ul id="playlist" style="list-style:none; margin-top:20;">
 <?php
-				$dir = "music";
-				$files = array_diff(scandir($dir), array('..', '.'));
+				$dir = "music/" . $_SESSION['selectedDate'];
+				
+				if(!file_exists($dir)){
+					mkdir($dir, 0777, true);
+					$files = array_diff(scandir($dir), array('..', '.'));
+				}else{
+					$files = array_diff(scandir($dir), array('..', '.'));
+				}
 	
-				foreach($files as $file){
-					$mp3 = strpos($file, ".mp3");
-					$filenomp3 = substr($file, 0, $mp3);
-					echo "<li><a href='music/".$file."'>".$filenomp3."</a></li>";
+				if(sizeof($files) == 0){
+					echo "<script>alert('NO FILES');</script>";
+				}else{
+					foreach($files as $file){
+						$mp3 = strpos($file, ".mp3");
+						$filenomp3 = substr($file, 0, $mp3);
+						echo "<li><a href='music/".$_SESSION['selectedDate']."/".$file."'>".$filenomp3."</a></li>";
+					}
 				}
 ?>
 				</ul>
@@ -66,15 +78,21 @@ if(!isset($_SESSION['selectedDate'])){
 				<script>
 					audioPlayer();
 				</script>
+				<form action="show.php" method="post" enctype="multipart/form-data">
+					<div class="form-group" style="color: white;">
+						<label>Example file input</label>
+						<input type="file" class="form-control-file" name="file">
+						<input type="submit" class="form-control" name="_submitFile" value="Upload File">
+					</div>
+				</form>				
 			</center>
 		</div>
 	</body>
 </html>
 
 <?php
-	function shutdown(){
-		unset($_SESSION["selectedDate"]);
+	if(isset($_POST['_submitFile'])){
+		error_log("file form submitted");
+		uploadFile("music/" . $_SESSION['selectedDate'] . "/", $_FILES);
 	}
-
-	register_shutdown_function("shutdown");
 ?>

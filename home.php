@@ -2,6 +2,8 @@
 include('header.php');
 include('methods/data/homedb.php');
 include('methods/display/homedisplay.php');
+
+unset($_SESSION["selectedDate"]);
 ?>
 <html>
 	<head>
@@ -102,14 +104,6 @@ if(isset($_POST['_search'])){
 		echo "<script>alert('Show: ".$_POST['date']." already is stored, aborting addition.'); window.location = 'home.php';</script>";
 	}
 	
-}else if(isset($_POST["_submitFile"])){
-	try{
-		$target_file = "music/" . basename($_FILES["file"]["name"]);
-		move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
-		echo "<script>window.location='home.php'</script>";
-	}catch(Exception $e){
-		error_log($e->getMessage());
-	}
 }else if(isset($_POST['_goToShow'])){
 	$_SESSION['selectedDate'] = $_POST['_goToShow'];
 	header("Location: show.php");
@@ -118,16 +112,6 @@ if(isset($_POST['_search'])){
 	_displayAddForm();
 }
 		?>	
-			<center>
-				<form action="home.php" method="post" enctype="multipart/form-data">
-					<div class="form-group" style="color: white;">
-						<label>Example file input</label>
-						<input type="file" class="form-control-file" name="file">
-						<input type="submit" class="form-control" name="_submitFile" value="Upload File">
-					</div>
-				</form>
-			
-			</center>
 		</div>
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
