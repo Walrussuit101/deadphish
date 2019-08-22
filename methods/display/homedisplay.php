@@ -25,7 +25,7 @@ function _displayResults($conn, $results){
 				<td><a href='".$row['link']."' target='_blank'>".$row['link']."</a></td>
 				<td>".$artist."</td>
 				<td>".$row['notes']."</td>
-				<td><form action='home.php' method='post'><button class='form-control btn btn-success' type='submit' name='_goToShow' value='".$row['date']."'>Go</button></form></td>
+				<td><form action='home' method='post'><button class='form-control btn btn-success' type='submit' name='_goToShow' value='".$row['date']."'>Go</button></form></td>
 			</tr>
 		";
 	}	

@@ -22,7 +22,7 @@ unset($_SESSION["selectedDate"]);
 			</a>
 			
 			<ul class="nav navbar-nav ml-auto mr-4">
-				<form class=" ml-auto" action="home.php" method="post" style="color: white;"> 
+				<form class=" ml-auto" action="home" method="post" style="color: white;"> 
 					<div style="float: left;" class="mr-4">
 						<label>Dead</label>
 						<input type="checkbox" class="form-control" onChange="this.form.submit()" name="_searchByDead"></button>
@@ -35,7 +35,7 @@ unset($_SESSION["selectedDate"]);
 			</ul>
 			
 			<ul class="nav navbar-nav" style="float: right;">
-				<form class="form-inline my-2" action="home.php" method="post" autocomplete="off">
+				<form class="form-inline my-2" action="home" method="post" autocomplete="off">
 					<input class="form-control" type="text" placeholder="Search Date" name="searchDate" value="<?php if(isset($_POST['searchDate'])){echo $_POST['searchDate'];}?>" required='required'>
 					<input type="submit" style="display: none;" name="_search">
 					<script>document.getElementsByName("searchDate")[0].focus();</script>
