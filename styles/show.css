@@ -1,3 +1,7 @@
+.content{
+	margin-top: 200px;
+}
+
 body{
 	background-image: url("images/bg.png");
 }
@@ -17,31 +21,6 @@ a{
 	text-decoration: none !important;;
 }
 
-.dateTable{
-	width: 65%;
-	table-layout: fixed;
-}
-
-.dateTable td{
-	word-wrap:break-word;
-}
-
-.content{
-	margin-top: 140px;
-}
-
-textarea{
-	resize: none;
-	height: 150;
-}
-
-.addForm{
-	color: white;
-	width: 40%;
-	border-radius: 25px;
-	background-color: rgb(30, 37, 41, .5);
-}
-
 input[type="checkbox"]{
 	height: 40px;
 }
@@ -49,9 +28,6 @@ input[type="checkbox"]{
 input[type="checkbox"]:focus{
 	box-shadow:none !important;
 }
-
-
-
 
 .currentSong{
 	color: green;

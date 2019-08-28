@@ -20,3 +20,27 @@ function validateDeadPhishButtons(){
 		return true;
 	}
 }
+
+function audioPlayer(){
+	var currentSong = 0;
+	$('#audioPlayer')[0].src = $('#playlist li a')[0];
+	$('#playlist li a').click(function(e){
+		e.preventDefault();
+		$('#audioPlayer')[0].src = this;
+		$('#audioPlayer')[0].play();
+		document.title = $('title').text() + "..." + $(this).html();
+		$('#playlist li a').removeClass('currentSong');
+		currentSong = $(this).parent().index();
+		$(this).addClass('currentSong');
+	});
+	
+	$('#audioPlayer')[0].addEventListener('ended', function(){
+		currentSong++;
+		if(currentSong == $('#playlist li a').length)
+			currentSong = 0;
+		$('#playlist li a').removeClass('currentSong');
+		$('#playlist li a:eq('+currentSong+')').addClass('currentSong');
+		$('#audioPlayer')[0].src = $('#playlist li a')[currentSong].href;
+		$('#audioPlayer')[0].play();
+	});
+}

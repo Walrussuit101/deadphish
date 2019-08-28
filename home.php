@@ -14,6 +14,7 @@ function urlExists($url){
 	}
 }
 
+unset($_SESSION["selectedDate"]);
 ?>
 <html>
 	<head>
@@ -32,7 +33,7 @@ function urlExists($url){
 			</a>
 			
 			<ul class="nav navbar-nav ml-auto mr-4">
-				<form class=" ml-auto" action="home.php" method="post" style="color: white;"> 
+				<form class=" ml-auto" action="home" method="post" style="color: white;"> 
 					<div style="float: left;" class="mr-4">
 						<label>Dead</label>
 						<input type="checkbox" class="form-control" onChange="this.form.submit()" name="_searchByDead"></button>
@@ -45,7 +46,7 @@ function urlExists($url){
 			</ul>
 			
 			<ul class="nav navbar-nav" style="float: right;">
-				<form class="form-inline my-2" action="home.php" method="post" autocomplete="off">
+				<form class="form-inline my-2" action="home" method="post" autocomplete="off">
 					<input class="form-control" type="text" placeholder="Search Date" name="searchDate" value="<?php if(isset($_POST['searchDate'])){echo $_POST['searchDate'];}?>" required='required'>
 					<input type="submit" style="display: none;" name="_search">
 					<script>document.getElementsByName("searchDate")[0].focus();</script>
@@ -125,45 +126,16 @@ if(isset($_POST['_search'])){
 		echo "<script>alert('Show: ".$_POST['date']." already is stored, aborting addition.'); window.location = 'home.php';</script>";
 	}
 	
+}else if(isset($_POST['_goToShow'])){
+	$_SESSION['selectedDate'] = $_POST['_goToShow'];
+	header("Location: show.php");
+	exit();
 }else{
-echo"	
-			<center>
-				<form class='addForm' onsubmit='return validateDeadPhishButtons();' action='home.php' method='post' autocomplete='off'>
-					<div class='form-row justify-content-center pt-4'>
-						<div class='form-group col-md-3'>
-							<label>Date (yyyy/mm/dd)</label>
-							<input type='text' name='date' class='form-control' required='required'>
-						</div>
-					</div>
-					<div class='form-row justify-content-center mb-3'>
-						<div class='form-group col-md-2'>
-							<label>Dead?</label>
-							<input type='checkbox' name='isDead' class='form-control' onclick='deadPhishButtons()'>
-						</div>
-						<div class='form-group col-md-2'>
-							<label>Phish?</label>
-							<input type='checkbox' name='isPhish' class='form-control' onclick='deadPhishButtons()'>
-						</div>
-					</div>
-					<div class='form-row justify-content-center pb-4'>
-						<div class='form-group col-md-6'>
-							<label>Notes</label>
-							<textarea type='text' name='notes' class='form-control'></textarea>
-						</div>
-					</div>
-					<div class='form-row justify-content-center pb-4'>
-						<div class='form-group col-md-6'>
-							<input type='submit' name='_addShowSubmit' class='form-control btn btn-success' value='Add Show'>
-						</div>
-					</div>
-				</form>
-			</center>
-";
+	_displayAddForm();
 }
 		?>	
 		</div>
 		
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</body>
